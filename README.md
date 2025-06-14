@@ -30,17 +30,24 @@ pip install -r requirements.txt
 5. Ejecutar Chroma
 ```bash
 cd app/
-chromadb run
+chroma run
 ```
 
-6. Guardar el archivo de Codigo de Trabajo
+6. Abrir una nueva terminal y activar el entorno virtual
+```bash
+# En Linux o MacOS
+source venv/bin/activate
+# En Windows
+venv\Scripts\activate
+
+7. Guardar el archivo de Codigo de Trabajo
 ```bash
 cd app/
 
 # En Linux o MacOS
-python3 save_to_chromadb.py
+python3 text_processor/save_to_chromadb.py
 # En Windows
-python save_to_chromadb.py
+python text_processor\save_to_chromadb.py
 ```
 
 
