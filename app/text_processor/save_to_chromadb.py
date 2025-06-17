@@ -1,7 +1,7 @@
 import chromadb
 from chromadb.config import Settings
 from sentence_transformers import SentenceTransformer
-from process_text import process_pdf  # Return list of text chunks from PDF
+from text_processor.process_text import process_pdf  # Return list of text chunks from PDF
 import pathlib
 import json
 from typing import List

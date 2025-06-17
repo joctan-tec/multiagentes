@@ -1,14 +1,23 @@
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.vectorstores import Chroma
 
 load_dotenv()
-API_KEY = os.getenv("OPEN_AI_API_KEY")
 
-# Singleton instance of OpenAI client
-openai_client = None
-def get_openai_client():
-    global openai_client
-    if openai_client is None:
-        openai_client = OpenAI(api_key=API_KEY)
-    return openai_client
+class Config:
+
+    def __init__(self):
+        self.OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+        if not self.OPENAI_API_KEY:
+            raise ValueError("La clave de API de OpenAI no está configurada. Por favor, establece la variable de entorno 'OPEN_AI_API_KEY'.")
+        self.openai_client = OpenAI(api_key=self.OPENAI_API_KEY)
+
+    def configurar_entorno(self):
+        os.environ["OPENAI_API_KEY"] = self.OPENAI_API_KEY
+
+    def crear_retriever(self):
+        embeddings = OpenAIEmbeddings()
+        vectorstore = Chroma(persist_directory="./chromadb", embedding_function=embeddings)
+        return vectorstore.as_retriever()

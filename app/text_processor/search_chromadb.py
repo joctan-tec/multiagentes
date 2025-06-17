@@ -1,4 +1,4 @@
-from save_to_chromadb import get_chroma_client
+from text_processor.save_to_chromadb import get_chroma_client
 
 def search(query: str, collection_name: str = "pdf_chunks", n_results: int = 5):
     """
