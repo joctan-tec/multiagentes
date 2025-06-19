@@ -1,4 +1,4 @@
-let previous_response_id;
+let previous_response;
 
 
 const generateMessageElement = (message, sender) => {
@@ -61,7 +61,7 @@ const fetchChatGPTResponse = async (message) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ message, previous_response_id }),
+      body: JSON.stringify({ message, previous_response }),
     });
 
     if (!response.ok) {
@@ -69,7 +69,7 @@ const fetchChatGPTResponse = async (message) => {
     }
 
     const data = await response.json();
-    previous_response_id = data.previous_response_id; // Actualizar el ID de la respuesta previa
+    previous_response += '\n' + data.previous_response; // Actualizar el ID de la respuesta previa
     console.log("Respuesta de ChatGPT:", data);
     return data.chatgpt_response;
   } catch (error) {

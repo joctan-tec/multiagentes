@@ -9,38 +9,50 @@ git clone git@github.com:joctan-tec/multiagentes.git
 # Por HTTPS
 git clone https://github.com/joctan-tec/multiagentes.git
 ```
-2. Crear un entorno virtual
+
+2. Ejecutar el archivo ejecutable para la instalacion
+```bash
+./install.sh
+```
+
+3. Esperar a que se contruya la imagen de Docker y se configure el ambiente.
+4. Acceder a ```http://localhost:5000/``` en su navegador.
+
+
+---
+
+1. Crear un entorno virtual
 ```bash
 # En Linux o MacOS
 python3 -m venv venv
 # En Windows
 python -m venv venv
 ```
-3. Activar el entorno virtual
+1. Activar el entorno virtual
 ```bash
 # En Linux o MacOS
 source venv/bin/activate
 # En Windows
 venv\Scripts\activate
 ```
-4. Instalar las dependencias
+1. Instalar las dependencias
 ```bash
 pip install -r requirements.txt
 ```
-5. Ejecutar Chroma
+1. Ejecutar Chroma
 ```bash
 cd app/
 chroma run
 ```
 
-6. Abrir una nueva terminal y activar el entorno virtual
+1. Abrir una nueva terminal y activar el entorno virtual
 ```bash
 # En Linux o MacOS
 source venv/bin/activate
 # En Windows
 venv\Scripts\activate
 
-7. Guardar el archivo de Codigo de Trabajo
+1. Guardar el archivo de Codigo de Trabajo
 ```bash
 cd app/
 

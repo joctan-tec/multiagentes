@@ -1,5 +1,6 @@
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import Document
+from langchain.schema.messages import HumanMessage, AIMessage
 from text_processor.search_chromadb import search
 
 class AgenteBuscador:
@@ -15,17 +16,20 @@ class AgenteAnalista:
     def __init__(self):
         self.chat = ChatOpenAI(model_name="gpt-4o-mini")
 
-    def ejecutar(self, documentos, pregunta):
+    def ejecutar(self, documentos, pregunta, respuesta_anterior=None):
         print("\nAgenteAnalista procesando...")
         contexto = "\n".join([doc.page_content for doc in documentos])
 
-        prompt = (
+        mensajes = []
+        if respuesta_anterior:
+            mensajes.append(AIMessage(content=respuesta_anterior))
+        mensajes.append(HumanMessage(content=(
             f"Con base en los siguientes textos legales:\n{contexto}\n\n"
             f"Responde claramente a la pregunta:\n{pregunta}"
-        )
+        )))
 
-        respuesta = self.chat.predict(prompt)
-        return {"respuesta_analista": respuesta}
+        respuesta = self.chat.invoke(mensajes)
+        return {"respuesta_analista": respuesta.content}
 
 
 class AgenteRedactor:

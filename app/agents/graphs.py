@@ -3,7 +3,7 @@ from open_ai_conf import Config
 from agents.agents import AgenteBuscador, AgenteAnalista, AgenteRedactor
 
 
-def construir_grafo_multiagente():
+def construir_grafo_multiagente(respuesta_anterior=None):
     # retriever = Config().crear_retriever()
     buscador = AgenteBuscador()
     analista = AgenteAnalista()
@@ -13,7 +13,7 @@ def construir_grafo_multiagente():
         return buscador.ejecutar(state["pregunta"])
 
     def nodo_analista(state):
-        return analista.ejecutar(state["documentos"], state["pregunta"])
+        return analista.ejecutar(state["documentos"], state["pregunta"], respuesta_anterior)
 
     def nodo_redactor(state):
         return redactor.ejecutar(state["respuesta_analista"])

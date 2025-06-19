@@ -38,12 +38,6 @@ def save_chunks_to_chromadb(chunks, collection_name="pdf_chunks"):
     )
     print(f"Added {len(chunks)} chunks to the collection '{collection_name}'.")
 
-# def main():
-#     pdf_file_path = pathlib.Path(__file__).parent / "Codigo_Trabajo.pdf"
-#     chunks = process_pdf(pdf_file_path, chunk_size=500, chunk_overlap=50)
-#     print(f"Procesando y guardando {len(chunks)} chunks...")
-#     save_chunks_to_chromadb(chunks)
-
 def main():
     pdf_dir = pathlib.Path(__file__).parent / "dataset"
     if not pdf_dir.exists() or not pdf_dir.is_dir():

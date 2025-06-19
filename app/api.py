@@ -1,15 +1,13 @@
-from flask import Flask, request, jsonify
+from agents.graphs import construir_grafo_multiagente
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-
-from open_ai_conf import get_openai_client
-
 
 app = Flask(__name__)
 CORS(app)
 
 @app.route('/', methods=['GET'])
-def hello():
-    return jsonify({"message": "Hello, World!"})
+def init_page():
+    return render_template("app/web/index.html")
 
 @app.route('/chatgpt', methods=['POST'])
 def chatgpt():
@@ -18,38 +16,26 @@ def chatgpt():
         return jsonify({"error": "No message provided"}), 400
     
     # Si no viene eL id del mensaje anterior, se puede omitir
-    previous_response_id = data.get('previous_response_id', None)
-    if previous_response_id is not None:
-        print(f"Previous response ID: {previous_response_id}")
-    
-    print("Mensaje anterior  ----------------" ,previous_response_id)
+    previous_response = data.get('previous_response', None)
+    if previous_response is not None:
+        print(f"Previous response: {previous_response}")
 
-    # Here you would typically call the OpenAI API with the provided message
-    # For demonstration, we will just echo back the message
-    openai_client = get_openai_client()
-    
-    if previous_response_id:
-        chatgpt_response = openai_client.responses.create(
-            model="gpt-4o-mini",
-            input=data['message'],
-            previous_response_id=previous_response_id
-        )
-        
-    else:
-        chatgpt_response = openai_client.responses.create(
-            model="gpt-4o-mini",
-            input=data['message'],
-        )
+    grafo = construir_grafo_multiagente(previous_response)
+    estado_inicial = {"pregunta": data['message']}
+    resultado = grafo.invoke(estado_inicial)
+
+    print("\nRespuesta final al usuario:")
+    print(resultado["respuesta_final"])
     
     response = {
         "message": f"You said: {data['message']}",
-        "chatgpt_response": chatgpt_response.output_text if chatgpt_response else "No response from ChatGPT",
-        "previous_response_id": chatgpt_response.id if chatgpt_response else None
+        "chatgpt_response": resultado["respuesta_final"] if resultado["respuesta_final"] else "No response from ChatGPT",
+        "previous_response": resultado['respuesta_final']
     }
-    print(f"ChatGPT response: {chatgpt_response}")
+    print(f"ChatGPT response: {resultado['respuesta_final']}")
     
     return jsonify(response)
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)
