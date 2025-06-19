@@ -38,11 +38,32 @@ def save_chunks_to_chromadb(chunks, collection_name="pdf_chunks"):
     )
     print(f"Added {len(chunks)} chunks to the collection '{collection_name}'.")
 
+# def main():
+#     pdf_file_path = pathlib.Path(__file__).parent / "Codigo_Trabajo.pdf"
+#     chunks = process_pdf(pdf_file_path, chunk_size=500, chunk_overlap=50)
+#     print(f"Procesando y guardando {len(chunks)} chunks...")
+#     save_chunks_to_chromadb(chunks)
+
 def main():
-    pdf_file_path = pathlib.Path(__file__).parent / "Codigo_Trabajo.pdf"
-    chunks = process_pdf(pdf_file_path, chunk_size=500, chunk_overlap=50)
-    print(f"Procesando y guardando {len(chunks)} chunks...")
-    save_chunks_to_chromadb(chunks)
+    pdf_dir = pathlib.Path(__file__).parent / "dataset"
+    if not pdf_dir.exists() or not pdf_dir.is_dir():
+        print(f"Error: El directorio '{pdf_dir}' no existe.")
+        return
+    pdf_paths = list(pdf_dir.glob("*.pdf"))  # Todos los PDFs en la carpeta
+    if not pdf_paths:
+        print(f"No se encontraron archivos PDF en el directorio '{pdf_dir}'.")
+        return
+
+    todos_los_chunks = []
+    
+    for pdf_path in pdf_paths:
+        print(f"Procesando: {pdf_path.name}")
+        chunks = process_pdf(pdf_path, chunk_size=500, chunk_overlap=50)
+        todos_los_chunks.extend(chunks)
+
+    print(f"\nGuardando un total de {len(todos_los_chunks)} chunks en ChromaDB...")
+    save_chunks_to_chromadb(todos_los_chunks)
+    print("Proceso completado.")
 
 if __name__ == "__main__":
     main()
