@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChafaGPT</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+      ol {
+        list-style-type: decimal;
+        padding-left: 1.5rem;
+      }
+      .dot {
+        animation: blink 1.4s infinite;
+        font-weight: bold;
+        font-size: 1.5rem;
+        display: inline-block;
+        margin-right: 2px;
+      }
+
+      .dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes blink {
+        0%,
+        20% {
+          opacity: 0;
+        }
+
+        50% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-gray-800 text-white flex flex-col items-center justify-center h-screen w-full p-4"
+  >
+    <div class="lg:w-1/2 w-full h-full flex flex-col items-center">
+      <div>
+        <h1 class="text-4xl font-bold text-center">ChafaGPT</h1>
+      </div>
+
+      <!-- Espacio de mensajes -->
+      <div
+        class="mt-5 w-full h-full bg-gray-700 p-4 rounded-lg shadow-lg overflow-y-auto"
+      >
+        <div id="messages" class="overflow-y-auto h-full">
+          <!-- Los mensajes se mostrarán aquí -->
+        </div>
+      </div>
+
+      <form id="messageForm" class="mt-4 w-full flex">
+        <textarea
+          id="messageInput"
+          autocomplete="off"
+          class="flex-1 p-2 rounded-l-lg bg-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none overflow-y-auto leading-relaxed"
+          placeholder="Escribe tu mensaje..."
+          required
+        ></textarea>
+        <button
+          type="submit"
+          class="p-2 bg-blue-600 rounded-r-lg hover:bg-blue-700 transition-colors"
+        >
+          Enviar
+        </button>
+      </form>
+    </div>
+
+    <script src="index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+replicaCount: 1
+
+image:
+  repository: joctan04/flask-api
+  tag: latest
+  pullPolicy: IfNotPresent
+
+resources: {}
