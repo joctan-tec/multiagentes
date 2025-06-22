@@ -1,10 +1,16 @@
-from app.graphs import construir_grafo_multiagente
-from flask import Flask, request, jsonify, render_template
+from app.graphs import GrafoMultiagente
+from flask import Flask, request, jsonify
 from flask_cors import CORS
+from app.text_processor.load_pdf import main as load_pdf
 
 app = Flask(__name__)
 CORS(app)
 
+'''
+Este es un sistema legal multiagente que utiliza Flask para crear una API RESTful.
+Los agentes trabajan juntos para responder preguntas legales utilizando técnicas avanzadas de procesamiento de lenguaje natural.
+El endpoint principal es `/chatgpt`, que recibe preguntas legales en formato JSON y devuelve respuestas generadas por el sistema multiagente.
+'''
 @app.route('/')
 def index():
     html_content = """
@@ -70,6 +76,15 @@ def index():
     """
     return html_content
     
+'''
+Endpoint para interactuar con el sistema multiagente.
+
+Args:
+    message (str): Pregunta legal que el usuario desea hacer.
+    previous_response (str, optional): Respuesta previa del analista para continuar el flujo.
+Returns:
+    JSON con la respuesta generada por el sistema multiagente.
+'''
 @app.route('/chatgpt', methods=['POST'])
 def chatgpt():
     data = request.json
@@ -81,7 +96,7 @@ def chatgpt():
     if previous_response is not None:
         print(f"Previous response: {previous_response}")
 
-    grafo = construir_grafo_multiagente(previous_response)
+    grafo = GrafoMultiagente().construir_grafo_multiagente(previous_response)
     estado_inicial = {"pregunta": data['message']}
     resultado = grafo.invoke(estado_inicial)
 
@@ -99,4 +114,5 @@ def chatgpt():
 
 
 if __name__ == "__main__":
+    load_pdf()  # Cargar los PDFs al iniciar la aplicación
     app.run(debug=True, host="0.0.0.0", port=5000)
