@@ -1,5 +1,14 @@
 # Multiagentes
 
+## Integrantes
+- Fiorella Zelaya - 2021453615
+- Joctan Esquivel - 2021069671
+- Justin Acuña - 2018093451
+
+## Enlace al vídeo demo
+
+[Enlace del video](https://youtu.be/8N1RGVjvc-w?si=qJOAbRfrK9MIM4q-)
+
 ## Pasos para instalar
 
 **1.** Clonar el repositorio
