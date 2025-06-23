@@ -1,7 +1,7 @@
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import Document
 from langchain.schema.messages import HumanMessage, AIMessage
-from chromadb import ChromaDBClient
+from app.chroma import ChromaDBClient
 
 class AgenteBuscador:
     '''

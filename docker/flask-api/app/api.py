@@ -1,7 +1,6 @@
 from app.graphs import GrafoMultiagente
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from app.text_processor.load_pdf import main as load_pdf
 
 app = Flask(__name__)
 CORS(app)
@@ -114,5 +113,4 @@ def chatgpt():
 
 
 if __name__ == "__main__":
-    load_pdf()  # Cargar los PDFs al iniciar la aplicación
     app.run(debug=True, host="0.0.0.0", port=5000)
