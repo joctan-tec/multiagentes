@@ -9,6 +9,10 @@
 
 [Enlace del video](https://youtu.be/8N1RGVjvc-w?si=qJOAbRfrK9MIM4q-)
 
+## Aclaración
+
+En caso de necesitar la key de la api de OpenAI solicitarla al grupo. O se puede utilizar una propia en `multiagentes/charts/flask-api/templates/flask-api.yaml` en el campo OPENAI_API_KEY, línea 23 del archivo. 
+
 ## Pasos para instalar
 
 **1.** Clonar el repositorio
