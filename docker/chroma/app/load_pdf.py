@@ -10,6 +10,10 @@ def get_chroma_client():
     return chromadb.HttpClient(host="localhost", port=8000)
 
 class MyEmbeddingFunction:
+    """
+    Clase para generar embeddings de texto utilizando SentenceTransformer.
+    Esta clase se utiliza para crear una función de embedding personalizada que ChromaDB puede usar.
+    """
     def __init__(self, model_name="all-MiniLM-L6-v2"):
         self.model = SentenceTransformer(model_name)
 
@@ -18,6 +22,12 @@ class MyEmbeddingFunction:
         return embeddings
 
 def save_chunks_to_chromadb(chunks, collection_name="pdf_chunks"):
+    """
+    Guarda los chunks de texto en una colección de ChromaDB.
+    Args:
+        chunks (List[str]): Lista de fragmentos de texto a guardar.
+        collection_name (str): Nombre de la colección en ChromaDB donde se almacenarán los fragmentos.
+    """
     client = get_chroma_client()
     embedding_function = MyEmbeddingFunction()
 
@@ -39,6 +49,9 @@ def save_chunks_to_chromadb(chunks, collection_name="pdf_chunks"):
     print(f"Added {len(chunks)} chunks to the collection '{collection_name}'.")
 
 def main():
+    """
+    Función principal para cargar PDFs desde un directorio, procesarlos en chunks y guardarlos en ChromaDB.
+    """
     pdf_dir = pathlib.Path(__file__).parent / "dataset"
     if not pdf_dir.exists() or not pdf_dir.is_dir():
         print(f"Error: El directorio '{pdf_dir}' no existe.")

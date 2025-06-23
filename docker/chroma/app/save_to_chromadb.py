@@ -7,15 +7,16 @@ import json
 from typing import List
 
 def get_chroma_client():
-    """
-    Initialize and return a ChromaDB client.
-    """
     return chromadb.HttpClient(
         host="localhost",
         port=8000,
     )
 
 class MyEmbeddingFunction:
+    """
+    Custom embedding function using SentenceTransformer for ChromaDB.
+    This class is used to create a custom embedding function that ChromaDB can use.
+    """
     def __init__(self, model_name="all-MiniLM-L6-v2"):
         self.model = SentenceTransformer(model_name)
     
@@ -26,11 +27,10 @@ class MyEmbeddingFunction:
 
 def save_chunks_to_chromadb(chunks, collection_name="pdf_chunks"):
     """
-    Save text chunks to a ChromaDB collection.
-
+    Guarda los chunks de texto en una colección de ChromaDB.
     Args:
-        chunks (list): List of text chunks to save.
-        collection_name (str): Name of the ChromaDB collection.
+        chunks (List[str]): Lista de fragmentos de texto a guardar.
+        collection_name (str): Nombre de la colección en ChromaDB donde se almacenarán los fragmentos.
     """
     client = get_chroma_client()
     embedding_function = MyEmbeddingFunction()
@@ -55,7 +55,7 @@ def save_chunks_to_chromadb(chunks, collection_name="pdf_chunks"):
 
 def main():
     """
-    Main function to process a PDF file and save its text chunks to ChromaDB.
+    Función principal para procesar un archivo PDF, dividirlo en chunks y guardarlos en ChromaDB.
     """
     print("Processing PDF file and saving chunks to ChromaDB...")
     # Path to the PDF file
