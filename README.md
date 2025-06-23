@@ -31,12 +31,13 @@ cd multiagentes
 **3.** Ejecutar el archivo init.sh
 ```bash
 chmod +x init.sh
-./init.sh
+./init.sh [user]
 ```
 
 > ℹ️
 >
 > El script `init.sh` construirá las imagenes de Docker de forma local y levantará el ambiente de desarrollo como pods de Kubernetes.
+> Se debe de indicar el user de Docker, además se debe de pasar el password cuando se le solicite por parte de Docker.
 
 **4.** Verificar que los pods estén corriendo
 ```bash
