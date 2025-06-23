@@ -5,7 +5,7 @@ class ChromaDBClient:
     Clase para manejar la conexión y búsqueda en ChromaDB.
     """
 
-    def __init__(self, host="chroma-app", port=8000):
+    def __init__(self, host="chroma", port=8000):
         """
         Inicializa el cliente de ChromaDB.
         Args:
