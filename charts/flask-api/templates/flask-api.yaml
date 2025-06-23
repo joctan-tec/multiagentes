@@ -20,7 +20,7 @@ metadata:
   name: openai-secret
 type: Opaque
 stringData:
-  OPENAI_API_KEY: "Pidaselo al admin"
+  OPENAI_API_KEY: "pidaselo al admin"
   DEBUG: "False"
 
 ---

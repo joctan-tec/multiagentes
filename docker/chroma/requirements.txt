@@ -1,0 +1,5 @@
+chromadb
+sentence_transformers
+PyPDF2
+langchain
+langchain-community

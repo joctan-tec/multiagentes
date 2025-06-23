@@ -6,5 +6,5 @@ bin/
 share/
 pyvenv.cfg
 __pycache__/
-chroma
+
 .env
