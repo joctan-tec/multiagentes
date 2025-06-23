@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
       - name: chroma-container
-        image: joctan04/chroma:latest
-        imagePullPolicy: IfNotPresent
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: 8000
 ---

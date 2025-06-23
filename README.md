@@ -2,7 +2,7 @@
 
 ## Pasos para instalar
 
-1. Clonar el repositorio
+**1.** Clonar el repositorio
 ```bash
 # Por SSH, es requerido tener configurado el acceso SSH a GitHub
 git clone git@github.com:joctan-tec/multiagentes.git
@@ -10,59 +10,34 @@ git clone git@github.com:joctan-tec/multiagentes.git
 git clone https://github.com/joctan-tec/multiagentes.git
 ```
 
-2. Ejecutar el archivo ejecutable para la instalacion
+**2.** Ingresar al directorio del proyecto
 ```bash
-./install.sh
+cd multiagentes
 ```
 
-3. Esperar a que se contruya la imagen de Docker y se configure el ambiente.
-4. Acceder a ```http://localhost:5000/``` en su navegador.
-
-
----
-
-1. Crear un entorno virtual
+**3.** Ejecutar el archivo init.sh
 ```bash
-# En Linux o MacOS
-python3 -m venv venv
-# En Windows
-python -m venv venv
-```
-1. Activar el entorno virtual
-```bash
-# En Linux o MacOS
-source venv/bin/activate
-# En Windows
-venv\Scripts\activate
-```
-1. Instalar las dependencias
-```bash
-pip install -r requirements.txt
-```
-1. Ejecutar Chroma
-```bash
-cd app/
-chroma run
+chmod +x init.sh
+./init.sh
 ```
 
-1. Abrir una nueva terminal y activar el entorno virtual
-```bash
-# En Linux o MacOS
-source venv/bin/activate
-# En Windows
-venv\Scripts\activate
+> ℹ️
+>
+> El script `init.sh` construirá las imagenes de Docker de forma local y levantará el ambiente de desarrollo como pods de Kubernetes.
 
-1. Guardar el archivo de Codigo de Trabajo
+**4.** Verificar que los pods estén corriendo
 ```bash
-cd app/
-
-# En Linux o MacOS
-python3 text_processor/save_to_chromadb.py
-# En Windows
-python text_processor\save_to_chromadb.py
+kubectl get pods
 ```
 
+**5.** Acceder a la aplicación
+```bash
+# Acceder a la aplicación en el navegador
+http://localhost:30080
+```
 
-
-
-
+**Extra.** Si se desea verificar de forma gráfica el estado del API, se puede acceder al endpoint `/` de la aplicación:
+```bash
+# Acceder al endpoint de la aplicación en el navegador
+http://localhost:30500/
+```

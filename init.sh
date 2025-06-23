@@ -1,5 +1,5 @@
 cd docker
-./build.sh
+./build.sh $1
 cd ..
 cd charts
 ./uninstall.sh
